@@ -23,7 +23,7 @@ function report (id, data) {
     json: true,
     body,
     headers: {
-      'x-ha-access': process.env.HASSIO_TOKEN
+      Authorization: `Bearer ${process.env.HASSIO_TOKEN}`
     }
   });
 }
