@@ -19,7 +19,7 @@ function report (id, data) {
       return grp;
     }, {});
   }
-  return got(`${HASS_URL}/homeassistant/api/sensor/${id}`, {
+  return got(`${HASS_URL}/homeassistant/api/states/${id}`, {
     json: true,
     body,
     headers: {
