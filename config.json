@@ -4,7 +4,7 @@
   "description": "The hungarian gas price comparison site holtankoljak.hu parser",
   "startup": "application",
   "boot": "auto",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homeassistant_api": true,
   "hassio_role": "homeassistant",
   "options": {

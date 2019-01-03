@@ -7,25 +7,27 @@ const got = require('got');
 const fs = require('fs');
 const config = JSON.parse(fs.readFileSync(argv.config));
 const HASS_URL = 'http://hassio';
-
+const types = {
+  'benzin': 'gasoline',
+  'gázolaj': 'diesel',
+  'prémium benzin': 'premium_gasoline',
+  'prémium gázolaj': 'premium_diesel',
+}
 function report (id, data) {
-  const body = {
-    state: 'unavailable'
-  };
-  if (data) {
-    body.state = 'available';
-    body.attributes = data.reduce((grp, item) => {
-      grp[item.type] = item.price;
-      return grp;
-    }, {});
-  }
-  return got(`${HASS_URL}/homeassistant/api/states/${id}`, {
-    json: true,
-    body,
-    headers: {
-      Authorization: `Bearer ${process.env.HASSIO_TOKEN}`
-    }
-  });
+  return Promise.all(
+    data.map(item => {
+      const entity = `${id}_${types[item.type] || item.type}`;
+      return got(`${HASS_URL}/homeassistant/api/states/${entity}`, {
+        json: true,
+        body: {
+          state: item.price
+        },
+        headers: {
+          Authorization: `Bearer ${process.env.HASSIO_TOKEN}`
+        }
+      });
+    })
+  );
 }
 
 console.log('app is starting with schedule of %s to scrape the following stations:\n%s', config.schedule, config.stations.map(s => s.url).join('\n'));
@@ -46,11 +48,8 @@ const job = new CronJob({
       } catch (x) {
         console.log('error occured while processing %s with id of %s', station.url, station.id);
         console.error(x);
-        await report(station.id);
       }
     }
-
-    console.log(JSON.stringify(results, null, 2));
   }
 });
 
