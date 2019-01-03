@@ -6,6 +6,7 @@
   "boot": "auto",
   "version": 1,
   "homeassistant_api": true,
+  "hassio_role": "homeassistant",
   "options": {
     "schedule": "0 * * * *",
     "stations": []
