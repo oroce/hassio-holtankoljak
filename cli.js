@@ -15,18 +15,20 @@ const types = {
 }
 function report (id, data) {
   return Promise.all(
-    data.map(item => {
-      const entity = `${id}_${types[item.type] || item.type}`;
-      return got(`${HASS_URL}/homeassistant/api/states/${entity}`, {
-        json: true,
-        body: {
-          state: item.price
-        },
-        headers: {
-          Authorization: `Bearer ${process.env.HASSIO_TOKEN}`
-        }
-      });
-    })
+    data
+      .filter(item => item.price != null)
+      .map(item => {
+        const entity = `${id}_${types[item.type] || item.type}`;
+        return got(`${HASS_URL}/homeassistant/api/states/${entity}`, {
+          json: true,
+          body: {
+            state: item.price
+          },
+          headers: {
+            Authorization: `Bearer ${process.env.HASSIO_TOKEN}`
+          }
+        });
+      })
   );
 }
 
