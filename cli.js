@@ -17,6 +17,7 @@ function report (id, data) {
   return Promise.all(
     data
       .filter(item => item.price != null)
+      .filter(item => config.types.includes(types[item.type]))
       .map(item => {
         const entity = `${id}_${types[item.type] || item.type}`;
         return got(`${HASS_URL}/homeassistant/api/states/${entity}`, {

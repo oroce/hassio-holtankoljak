@@ -4,18 +4,20 @@
   "description": "The hungarian gas price comparison site holtankoljak.hu parser",
   "startup": "application",
   "boot": "auto",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "homeassistant_api": true,
   "hassio_role": "homeassistant",
   "options": {
     "schedule": "0 * * * *",
-    "stations": []
+    "stations": [],
+    "types": ["gasoline", "diesel", "premium_gasoline", "premium_diesel", "adblue"]
   },
   "schema": {
     "schedule": "str",
     "stations": [{
       "url": "str",
       "id": "str"
-    }]
+    }],
+    "types": ["str"]
   }
 }
