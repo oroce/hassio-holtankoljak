@@ -1,0 +1,33 @@
+{
+  "name": "holtankoljak",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -r should '*.test.js'",
+    "test:watch": "npm run test -- -w -b",
+    "lint": "semistandard",
+    "lint:fix": "semistandard --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cron": "^1.6.0",
+    "got": "^9.5.0",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "proxyquire": "^2.1.0",
+    "semistandard": "^13.0.1",
+    "should": "^13.2.3",
+    "sinon": "^7.2.2"
+  },
+  "semistandard": {
+    "globals": [
+      "describe",
+      "it"
+    ]
+  }
+}

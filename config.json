@@ -1,0 +1,20 @@
+{
+  "name": "holtankoljak.hu Gas price scraper",
+  "slug": "holtankoljak",
+  "description": "The hungarian gas price comparison site holtankoljak.hu parser",
+  "startup": "application",
+  "boot": "auto",
+  "version": 1,
+  "homeassistant_api": true,
+  "options": {
+    "schedule": "0 * * * *",
+    "stations": []
+  },
+  "schema": {
+    "schedule": "str",
+    "stations": [{
+      "url": "str",
+      "id": "str"
+    }]
+  }
+}
